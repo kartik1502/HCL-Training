@@ -19,6 +19,13 @@ public class Book {
 	private String genre;
 	@CreationTimestamp
 	private java.time.LocalDateTime LocalDateTime;
+	private int noOfCopies;
+	public int getNoOfCopies() {
+		return noOfCopies;
+	}
+	public void setNoOfCopies(int noOfCopies) {
+		this.noOfCopies = noOfCopies;
+	}
 	public int getBookId() {
 		return bookId;
 	}

@@ -33,6 +33,10 @@
 				<td><label for="genre">Genre:</label></td>
 				<td><input type="text" name="Genre"></td>
 			</tr>
+			<tr>
+				<td><label for="noOfCopies">No of Copies:</label></td>
+				<td><input type="text" name="noOfCopies"></td>
+			</tr>
 		</table>
 		<input type="submit"> <input type="reset">
 

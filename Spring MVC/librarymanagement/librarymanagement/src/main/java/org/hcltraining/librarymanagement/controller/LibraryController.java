@@ -1,6 +1,5 @@
 package org.hcltraining.librarymanagement.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hcltraining.librarymanagement.dto.Book;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import net.bytebuddy.matcher.ModifierMatcher.Mode;
 
 @Controller
 public class LibraryController {
@@ -55,10 +52,6 @@ public class LibraryController {
 		ModelAndView view = new ModelAndView("updateDetails.jsp");
 		Book book = libraryService.getBookById(bookId);
 		view.addObject("bookId", book.getBookId());
-		view.addObject("bookTitle" , book.getName());
-		view.addObject("authorName", book.getAuthorName());
-		view.addObject("publishYear", book.getPublishYear());
-		view.addObject("genre", book.getGenre());
 		return view;
 	}
 	
@@ -93,9 +86,10 @@ public class LibraryController {
 	@RequestMapping(value = "/borrowed")
 	public ModelAndView borrowBook(@RequestParam("userId") int userId,@RequestParam("bookId") int bookId,@RequestParam("status") String status) {
 		BorrowBook book = new BorrowBook();
-		book.setUserId(userId);
+		User user = libraryService.getUserById(userId);
+		book.setUser(user);
 		book.setStatus(status);
-		String response = libraryService.addBorrowDetails(book,bookId);
+		String response = libraryService.addBorrowDetails(book,bookId,userId);
 		ModelAndView modelAndView = new ModelAndView("message.jsp");
 		if (response.equals("user")) {
 			modelAndView.addObject("msg","Invalid User!!! Please register");
@@ -124,6 +118,33 @@ public class LibraryController {
 		else {
 			return view.addObject("msg", "Book was not borrowed");
 		}
+	}
+	
+	@RequestMapping(value = "/getAllBooks")
+	public ModelAndView getAllBooks() {
+		
+		ModelAndView view = new ModelAndView("AllBooks.jsp");
+		List<Book> books = libraryService.getBooks();
+		view.addObject("getBooks",books);
+		return view;
+	}
+	
+	@RequestMapping(value = "/getAllUsers")
+	public ModelAndView getAllUsers() {
+		
+		ModelAndView view = new ModelAndView("AllUsers.jsp");
+		List<User> users = libraryService.getAllUsers();
+		view.addObject("getUsers", users);
+		return view;
+	}
+	
+	@RequestMapping(value = "/borrowStatus")
+	public ModelAndView borrowStatus() {
+		
+		ModelAndView view = new ModelAndView("borrowStatus.jsp");
+		List<BorrowBook> book = libraryService.bookStatus();
+		view.addObject("getStatus", book);
+		return view;
 	}
 	
 	

@@ -26,6 +26,11 @@ public class LibraryDao {
 	EntityManager entityManager;
 	EntityTransaction entityTransaction;
 
+	private void getManager() {
+		entityManager = entityManagerFactory.createEntityManager();
+		entityTransaction = entityManager.getTransaction();
+	}
+	
 	public Book addBook(Book book) {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityTransaction = entityManager.getTransaction();
@@ -73,15 +78,13 @@ public class LibraryDao {
 		return bookDetails;
 	}
 
-	public String addBorrowDetails(BorrowBook borrowBook, int bookId) {
+	public String addBorrowDetails(BorrowBook borrowBook, int bookId, int userId) {
 
 		entityManager = entityManagerFactory.createEntityManager();
 		entityTransaction = entityManager.getTransaction();
 		LocalDate date = LocalDate.now();
-		User user = entityManager.find(User.class, borrowBook.getUserId());
+		User user = entityManager.find(User.class, userId);
 		Book book = entityManager.find(Book.class, bookId);
-		borrowBook.setBook(book);
-		borrowBook.setDueDate(date.plusDays(10));
 		if(user == null) {
 			return "user";
 		}
@@ -89,10 +92,15 @@ public class LibraryDao {
 			return "book";
 		}
 		else {
+			book.setNoOfCopies(book.getNoOfCopies() - 1);
+			borrowBook.setBook(book);
+			borrowBook.setDueDate(date.plusDays(10));
 			entityTransaction.begin();
 			entityManager.persist(borrowBook);
+			entityManager.persist(book);
 			entityTransaction.commit();
 			entityManager.find(BorrowBook.class, borrowBook.getBorrowId());
+			
 			return "borrow";
 		}
 		
@@ -112,17 +120,20 @@ public class LibraryDao {
 			return "book";
 		}
 		else {
-			TypedQuery<BorrowBook> query = entityManager.createQuery("select bb from BorrowBook bb where bb.userId = :userId", BorrowBook.class);
-			List<BorrowBook> books = query.setParameter("userId",userId).getResultList();
+			Query query = entityManager.createQuery("select bb from BorrowBook bb");
+			@SuppressWarnings("unchecked")
+			List<BorrowBook> books = query.getResultList();
 			BorrowBook borrowBooks = new BorrowBook();
 			for (BorrowBook borrowBook : books) {
-				if(book.getBookId() == borrowBook.getBook().getBookId()) {
+				if(book.getBookId() == borrowBook.getBook().getBookId() && user.getUserId() == borrowBook.getUser().getUserId()) {
 					borrowBooks = borrowBook;
 				}
 			}
+			book.setNoOfCopies(book.getNoOfCopies() + 1);
 			borrowBooks.setStatus("Returned");
 			entityTransaction.begin();
 			entityManager.persist(borrowBooks);
+			entityManager.persist(book);
 			entityTransaction.commit();
 			return "true";
 		}
@@ -161,6 +172,49 @@ public class LibraryDao {
 		entityManager.persist(book2);
 		entityTransaction.commit();
 		return book2;
+	}
+	
+	public User getUserById(int userId) {
+		
+		entityManager = entityManagerFactory.createEntityManager();
+		entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		User user = entityManager.find(User.class, userId);
+		entityTransaction.commit();
+		return user;
+	}
+	
+	public List<Book> getBooks(){
+		
+		entityManager = entityManagerFactory.createEntityManager();
+		entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		Query query = entityManager.createQuery("select b from Book b");
+		@SuppressWarnings("unchecked")
+		List<Book> books = query.getResultList();
+		return books;
+		
+	}
+	
+	public List<User> getAllUsers(){
+		getManager();
+		entityTransaction.begin();
+		Query query = entityManager.createQuery("select u from User u");
+		@SuppressWarnings("unchecked")
+		List<User> users = query.getResultList();
+		entityTransaction.commit();
+		return users;
+	}
+	
+	public List<BorrowBook> borrowStatus(){
+		
+		getManager();
+		entityTransaction.begin();
+		Query query = entityManager.createQuery("select bb from BorrowBook bb");
+		@SuppressWarnings("unchecked")
+		List<BorrowBook> books = query.getResultList();
+		entityTransaction.commit();
+		return books;
 	}
 
 }
