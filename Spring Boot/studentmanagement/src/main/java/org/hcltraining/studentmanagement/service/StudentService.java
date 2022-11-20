@@ -15,4 +15,16 @@ public interface StudentService {
 
     void deleteById(int studentId);
 
+    Student findByStudentName(String studentName);
+
+    void deleteByStudentName(String studentName);
+
+    List<Student> findAllByStudentAge(int start,int end);
+
+    List<Student> findStudentByStudentNameStartingWith(String studentName);
+
+    List<Student> findAllStudentOrderByStudentName();
+
+    List<Student> findStudentNameLike(String studentName);
+
 }
