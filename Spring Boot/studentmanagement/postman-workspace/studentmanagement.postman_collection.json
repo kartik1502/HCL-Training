@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "b6faa944-1b0f-4754-ad0f-280d7c350903",
+		"name": "studentmanagement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13046684"
+	},
+	"item": [
+		{
+			"name": "add a student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " \r\n    {\r\n        \"studentName\":\"Jayanth G\",\r\n        \"studentAge\":\"27\",\r\n        \"studentEmail\":\"jayanthgjayanthg@gmail.com\",\r\n        \"studentContact\":\"7548954871\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/saveStudent",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"saveStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get student by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/getById/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getById",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getAllStudents",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getAllStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find student by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/findByStudentName/:studentName",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"findByStudentName",
+						":studentName"
+					],
+					"variable": [
+						{
+							"key": "studentName",
+							"value": "Karthik Kulkarni"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all students between ages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getAllStudentByAge/:start/:end",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getAllStudentByAge",
+						":start",
+						":end"
+					],
+					"variable": [
+						{
+							"key": "start",
+							"value": "20"
+						},
+						{
+							"key": "end",
+							"value": "27"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get student whose name starts with",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/findStudentByStudentNameStarting/:studentName",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"findStudentByStudentNameStarting",
+						":studentName"
+					],
+					"variable": [
+						{
+							"key": "studentName",
+							"value": "Ka"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all atudents through order by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/findAllStudentOrderByStudentName",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"findAllStudentOrderByStudentName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get student by name like",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/findStudentNameLike/:studentName",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"findStudentNameLike",
+						":studentName"
+					],
+					"variable": [
+						{
+							"key": "studentName",
+							"value": "Ja"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update student by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"studentName\":\"Arya\",\r\n    \"studentEmail\":\"kartikkulkarni1411@gmail.com\",\r\n    \"studentContact\":\"6361921186\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/updateStudent/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"updateStudent",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete student by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/deleteById/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"deleteById",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete student by name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/deleteByStudentName/:studentName",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"deleteByStudentName",
+						":studentName"
+					],
+					"variable": [
+						{
+							"key": "studentName",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

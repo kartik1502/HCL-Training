@@ -24,4 +24,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query("select s from Student s order by s.studentName")
     List<Student> findAllStudentOrderByStudentName();
 
+    List<Student> findByStudentNameOrStudentAge(String name,int age);
 }
