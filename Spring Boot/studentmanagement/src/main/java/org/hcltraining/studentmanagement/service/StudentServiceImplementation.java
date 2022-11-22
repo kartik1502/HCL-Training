@@ -1,15 +1,17 @@
 package org.hcltraining.studentmanagement.service;
 
-import org.hcltraining.studentmanagement.dto.Student;
+import org.hcltraining.studentmanagement.entity.Student;
 import org.hcltraining.studentmanagement.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class StudentServiceImplementation implements StudentService {
 
     @Autowired
@@ -61,12 +63,49 @@ public class StudentServiceImplementation implements StudentService {
 
     @Override
     public List<Student> findAllStudentOrderByStudentName() {
-        return repository.findAllStudentOrderByStudentName();
+        return repository.findStudentByOrderByStudentName();
     }
 
     @Override
-    public List<Student> findStudentNameLike(String studentName) {
-        return repository.findByStudentNameContaining(studentName);
+    public List<Student> findStudentNameContains(String studentName) {
+        return repository.findByStudentNameContains(studentName);
+    }
+
+    @Override
+    public List<Student> getAllStudentPaginated(int pageNo, int pageSize) {
+        Page<Student> studentPage = repository.findAll(PageRequest.of(pageNo,pageSize));
+        return studentPage.toList();
+    }
+
+    @Override
+    public List<Student> getAllStudentsAfter(String date) {
+        return repository.findAllByAdmissionDateAfter(Date.valueOf(date));
+    }
+
+    @Override
+    public List<Student> getAllStudentAgeGreaterThan(int age) {
+        return repository.findStudentByStudentAgeGreaterThan(age);
+    }
+
+    @Override
+    public List<Student> getAllStudentByStudentNameOrAge(String studentName, int age) {
+        return repository.findByStudentNameOrStudentAge(studentName,age);
+    }
+
+    @Override
+    public List<Student> getAllStudentAgeIn(List<Integer> ageList) {
+
+        return repository.findStudentByStudentAgeIn(ageList);
+    }
+
+    @Override
+    public List<Student> getStudentNameEnding(String studentName) {
+        return repository.findStudentByStudentNameEndingWith(studentName);
+    }
+
+    @Override
+    public List<Student> getStudenNameIgnoreCase(String studentName) {
+        return repository.findByStudentNameIgnoreCase(studentName);
     }
 
 

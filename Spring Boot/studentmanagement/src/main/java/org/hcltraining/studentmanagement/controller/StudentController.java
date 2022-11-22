@@ -1,11 +1,11 @@
 package org.hcltraining.studentmanagement.controller;
 
-import org.hcltraining.studentmanagement.dto.Student;
-import org.hcltraining.studentmanagement.repository.StudentRepository;
+import org.hcltraining.studentmanagement.entity.Student;
 import org.hcltraining.studentmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,23 +40,23 @@ public class StudentController {
         return "Deleted";
     }
 
-    @GetMapping("/findByStudentName/{studentName}")
-    public Student findByStudentName(@PathVariable(value = "studentName")String studentName){
+    @GetMapping("/findByStudentName")
+    public Student findByStudentName(@RequestParam String studentName){
         return service.findByStudentName(studentName);
     }
 
-    @DeleteMapping("/deleteByStudentName/{studentName}")
-    public void deleteByStudentName(@PathVariable(value = "studentName")String studentName){
+    @DeleteMapping("/deleteByStudentName")
+    public void deleteByStudentName(@RequestParam String studentName){
         service.deleteByStudentName(studentName);
     }
 
-    @GetMapping("/getAllStudentByAge/{start}/{end}")
-    public List<Student> findAllStudentByAge(@PathVariable(value = "start") int start,@PathVariable(value = "end") int end){
+    @GetMapping("/getAllStudentByAge")
+    public List<Student> findAllStudentByAge(@RequestParam int start,@RequestParam int end){
         return service.findAllByStudentAge(start,end);
     }
 
-    @GetMapping("findStudentByStudentNameStarting/{studentName}")
-    public List<Student> findStudentByStudentNameStarting(@PathVariable(value = "studentName")String studentName){
+    @GetMapping("findStudentByStudentNameStarting")
+    public List<Student> findStudentByStudentNameStarting(@RequestParam String studentName){
         return service.findStudentByStudentNameStartingWith(studentName);
     }
 
@@ -65,9 +65,45 @@ public class StudentController {
         return service.findAllStudentOrderByStudentName();
     }
 
-    @GetMapping("/findStudentNameLike/{studentName}")
-    public List<Student> findStudentNameLike(@PathVariable(value = "studentName")String studentName){
-        return service.findStudentNameLike(studentName);
+    @GetMapping("/findStudentNameContains")
+    public List<Student> findStudentNameLike(@RequestParam String studentName){
+        return service.findStudentNameContains(studentName);
+    }
+
+    @GetMapping("/getAllStudentPaginated")
+    public List<Student> getAllStudentsPaginated(@RequestParam int pageNo,@RequestParam int pageSize){
+        return service.getAllStudentPaginated(pageNo,pageSize);
+    }
+
+    @GetMapping("/getStudentAfter")
+    public List<Student> getAllStudentsAfter(@RequestParam String date){
+        return service.getAllStudentsAfter(date);
+    }
+
+    @GetMapping("/getStdentAgeGreaterThan")
+    public List<Student> getAllStudentAgeGreaterThan(@RequestParam int age){
+        return service.getAllStudentAgeGreaterThan(age);
+    }
+
+    @GetMapping("/getStudentNameOrAge")
+    public List<Student> getStudentByNameOrAge(@RequestParam String studentName,@RequestParam int age){
+        return service.getAllStudentByStudentNameOrAge(studentName,age);
+    }
+
+    @GetMapping("/getAllStudentAgeIn")
+    public List<Student> getStudentAgeIn(@RequestParam List<Integer> ages){
+     
+        return service.getAllStudentAgeIn(ages);
+    }
+
+    @GetMapping("/getStudentNameEnding")
+    public List<Student> getStudentNameEnding(@RequestParam String studentName){
+        return service.getStudentNameEnding(studentName);
+    }
+
+    @GetMapping("/getStudentNameIgnoreCase")
+    public List<Student> getStudentNameIgnoreCase(String studentName){
+        return service.getStudenNameIgnoreCase(studentName);
     }
 
 }

@@ -1,10 +1,10 @@
 package org.hcltraining.studentmanagement.repository;
 
-import org.hcltraining.studentmanagement.dto.Student;
+import org.hcltraining.studentmanagement.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,11 +18,19 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     List<Student> findStudentByStudentNameIsStartingWith(String studentName);
 
-    @Query("select s from Student s where s.studentName like :studentName%")
-    List<Student> findByStudentNameContaining(String studentName);
+    List<Student> findByStudentNameContains(String studentName);
 
-    @Query("select s from Student s order by s.studentName")
-    List<Student> findAllStudentOrderByStudentName();
+    List<Student> findStudentByOrderByStudentName();
 
     List<Student> findByStudentNameOrStudentAge(String name,int age);
+
+    List<Student> findAllByAdmissionDateAfter(Date date);
+
+    List<Student> findStudentByStudentAgeGreaterThan(int age);
+
+    List<Student> findStudentByStudentAgeIn(List<Integer> age);
+
+    List<Student> findStudentByStudentNameEndingWith(String studentName);
+
+    List<Student> findByStudentNameIgnoreCase(String studentName);
 }
