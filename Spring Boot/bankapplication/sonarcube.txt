@@ -1,0 +1,2 @@
+Sonar Code key: sqp_cfdce99d60dd6fd576375b3d56a63611f376fd8b
+Sonar cube Command: mvn clean verify sonar:sonar -Dsonar.projectKey=bankapplication_test -Dsonar.host.url=http://localhost:9009 -Dsonar.login=sqp_cfdce99d60dd6fd576375b3d56a63611f376fd8b
