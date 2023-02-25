@@ -1,0 +1,10 @@
+create database petshop;
+use petshop;
+drop database petshop;
+show tables;
+desc user;
+desc pet;
+desc user_pets;
+select * from user;
+select * from user_pets;
+select * from pet;

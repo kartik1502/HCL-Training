@@ -1,0 +1,1 @@
+mvn clean verify sonar:sonar -Dsonar.projectKey=onlinepetshop -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_91267172cf995af0c6e6c0d44140b15061b01429
