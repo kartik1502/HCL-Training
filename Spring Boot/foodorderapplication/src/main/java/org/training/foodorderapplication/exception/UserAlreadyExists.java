@@ -1,17 +1,18 @@
 package org.training.foodorderapplication.exception;
 
-public class NoSuchUserExists extends RuntimeException {
+import lombok.Data;
+
+public class UserAlreadyExists extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
-
 	private final String message;
 
-	public NoSuchUserExists(String message) {
+	public UserAlreadyExists(String message) {
 		super();
 		this.message = message;
 	}
 
-	public NoSuchUserExists() {
+	public UserAlreadyExists() {
 		super();
 		this.message = "";
 	}

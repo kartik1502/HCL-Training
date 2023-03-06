@@ -1,17 +1,16 @@
 package org.training.foodorderapplication.exception;
 
-public class NoSuchUserExists extends RuntimeException {
+public class PasswordDoseNotMatch extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
-
 	private final String message;
 
-	public NoSuchUserExists(String message) {
+	public PasswordDoseNotMatch(String message) {
 		super();
 		this.message = message;
 	}
 
-	public NoSuchUserExists() {
+	public PasswordDoseNotMatch() {
 		super();
 		this.message = "";
 	}

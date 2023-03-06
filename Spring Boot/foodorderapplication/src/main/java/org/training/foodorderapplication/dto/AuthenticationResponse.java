@@ -1,7 +1,5 @@
 package org.training.foodorderapplication.dto;
 
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseDto {
+public class AuthenticationResponse {
 
-	private int responseCode;
-
-	private Set<String> responseMessages;
+	private int statusCode;
+	
+	private String message;
+	
+	private String jwtToken;
 }

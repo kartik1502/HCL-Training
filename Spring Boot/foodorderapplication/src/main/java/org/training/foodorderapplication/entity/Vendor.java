@@ -17,6 +17,6 @@ public class Vendor {
 
 	private String vendorName;
 
-	private String companyName;
+	private String vendorCompany;
 
 }
